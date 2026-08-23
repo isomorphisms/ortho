@@ -224,7 +224,6 @@ static bool create_renderer(struct engine *engine) {
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
-    glEnable(GL_PROGRAM_POINT_SIZE);
     LOGI("renderer ready: %s / %s", glGetString(GL_VERSION), glGetString(GL_RENDERER));
     return true;
 }
@@ -496,8 +495,6 @@ static void handle_command(struct android_app *app, int32_t command) {
 }
 
 void android_main(struct android_app *app) {
-    app_dummy();
-
     struct engine engine;
     memset(&engine, 0, sizeof(engine));
     engine.app = app;
