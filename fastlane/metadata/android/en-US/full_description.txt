@@ -1,0 +1,3 @@
+Ortho is a small native Android mathematical viewer for the positive three-dimensional orthant.
+
+The app renders the orthant directly with OpenGL ES and lets you rotate it with one finger. The mathematical geometry is maintained in Idriç with a reproducible generated C boundary used by the Android build.
