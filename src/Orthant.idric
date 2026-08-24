@@ -1,0 +1,40 @@
+module Orthant
+
+%default total
+
+public export
+choice sign one_of
+  negative
+  positive
+
+public export
+dimension : Nat
+dimension = 3
+
+public export
+axis_signs : List sign
+axis_signs = [positive, positive, positive]
+
+public export
+face_vertices : List (Float, Float, Float)
+face_vertices =
+  [ (0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 1.0, 0.0)
+  , (0.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 0.0)
+  , (0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 1.0)
+  , (0.0, 0.0, 0.0), (1.0, 0.0, 1.0), (0.0, 0.0, 1.0)
+  , (0.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 1.0)
+  , (0.0, 0.0, 0.0), (0.0, 1.0, 1.0), (0.0, 0.0, 1.0)
+  ]
+
+public export
+edge_vertices : List (Float, Float, Float)
+edge_vertices =
+  [ (0.0, 0.0, 0.0), (1.25, 0.0, 0.0)
+  , (0.0, 0.0, 0.0), (0.0, 1.25, 0.0)
+  , (0.0, 0.0, 0.0), (0.0, 0.0, 1.25)
+  ]
+
+public export
+flip : sign → sign
+flip negative = positive
+flip positive = negative

@@ -1,0 +1,37 @@
+module Generate
+
+import Orthant
+
+%default total
+
+c_float : Float → String
+c_float value = show value ++ "f"
+
+vertex_text : (Float, Float, Float) → String
+vertex_text (x, y, z) =
+  "    " ++ c_float x ++ ", " ++ c_float y ++ ", " ++ c_float z
+
+join_vertices : List String → String
+join_vertices [] = ""
+join_vertices [line] = line
+join_vertices (line :: lines) = line ++ ",\n" ++ join_vertices lines
+
+array_text : String → List (Float, Float, Float) → String
+array_text name vertices =
+  "static const float " ++ name ++ "[] = {\n" ++
+  join_vertices (map vertex_text vertices) ++
+  "\n};\n"
+
+generated_header : String
+generated_header =
+  "#ifndef ORTHANT_MODEL_H\n" ++
+  "#define ORTHANT_MODEL_H\n\n" ++
+  "/* Generated from src/Orthant.idric by src/Generate.idric. */\n" ++
+  array_text "ORTHANT_FACE_POSITIONS" face_vertices ++
+  "#define ORTHANT_FACE_VERTEX_COUNT " ++ show (length face_vertices) ++ "\n\n" ++
+  array_text "ORTHANT_EDGE_POSITIONS" edge_vertices ++
+  "#define ORTHANT_EDGE_VERTEX_COUNT " ++ show (length edge_vertices) ++ "\n\n" ++
+  "#endif\n"
+
+main : IO ()
+main = putStr generated_header
